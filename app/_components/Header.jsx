@@ -27,7 +27,7 @@ function Header() {
         {/* Auth Buttons / User Profile */}
         <div className="flex items-center gap-4">
           <SignedIn>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton />
           </SignedIn>
 
           <SignedOut>
