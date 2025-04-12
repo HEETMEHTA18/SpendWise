@@ -55,11 +55,11 @@ export default function Page() {
               </a>
 
               <h1 className="mt-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-                Welcome to SpendWise
+                Welcome Back!
               </h1>
 
               <p className="mt-2 text-gray-600">
-                Manage your money like a pro. Sign in to get started.
+                Manage your money like a pro. Sign in to continue managing your money.
               </p>
             </div>
 
