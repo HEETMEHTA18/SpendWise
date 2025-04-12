@@ -5,7 +5,7 @@ export default function Page() {
     <section className="bg-white">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         {/* Left Image Section */}
-        <section className="relative flex w-200 h-48 items-end bg-gray-900 lg:col-span-5 lg:h-full">
+        <section className="relative flex w-188 h-48 items-end bg-gray-900 lg:col-span-5 lg:h-full">
           <img
             src="https://images.unsplash.com/photo-1617195737496-bc30194e3a19"
             alt="Spending Illustration"
