@@ -36,7 +36,7 @@ export default function Page() {
           </section>
   
           {/* Right SignIn Form Section */}
-          <main className="flex items-center justify-center px-8 py-12 sm:px-12 lg:col-span-7 lg:px-16 lg:pl-84">
+          <main className="flex items-center justify-center px-8 py-12 sm:px-12 lg:col-span-7 lg:px-16 lg:pl-64">
             <div className="w-full max-w-xl">
               {/* Mobile Logo + Intro */}
               <div className="lg:hidden mb-8 text-center">
@@ -64,7 +64,7 @@ export default function Page() {
               </div>
   
               {/* Clerk SignIn Component */}
-              <div className="">
+              <div className="md:pl-22 sm:pl-12">
                 <SignUp />
               </div>
             </div>

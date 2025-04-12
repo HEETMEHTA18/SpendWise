@@ -1,38 +1,52 @@
-import React from 'react'
-import Image from 'next/image'
+"use client";
+import React from "react";
+import Image from "next/image";
 import {
   SignInButton,
   SignUpButton,
   SignedIn,
   SignedOut,
   UserButton,
-} from '@clerk/nextjs'
+} from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 
 function Header() {
-  return (
-    <div className='p-5 flex justify-between items-center border shadow-sm'>
-      {/* Logo + Title section */}
-      <div className='flex items-center space-x-3'>
-        <Image 
-          src={'./logo.svg'} 
-          alt='logo'
-          width={50}
-          height={50}
-        />
-        <span className='text-orange-500 text-xl font-bold'>SpendWise</span>
-      </div>
+  const { isSignedIn } = useUser();
 
-      <header className="flex justify-end items-center p-4 gap-4 h-16">
-            <SignedOut>
-              <SignInButton />
-              <SignUpButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
-    </div>
-  )
+  return (
+    <header className="p-4 md:p-6 bg-white border-b shadow-sm">
+      <div className="container mx-auto flex justify-between items-center">
+        {/* Logo + Brand */}
+        <div className="flex items-center gap-3">
+          <Image src="/logo.svg" alt="logo" width={48} height={48} />
+          <span className="text-2xl font-extrabold text-orange-500 tracking-wide">
+            SpendWise
+          </span>
+        </div>
+
+        {/* Auth Buttons / User Profile */}
+        <div className="flex items-center gap-4">
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+
+          <SignedOut>
+            <SignInButton>
+              <button className="px-4 py-2 text-sm font-medium border border-orange-500 text-orange-500 rounded-full hover:bg-orange-50 transition">
+                Sign In
+              </button>
+            </SignInButton>
+
+            <SignUpButton>
+              <button className="px-4 py-2 text-sm font-medium bg-orange-500 text-white rounded-full hover:bg-orange-600 transition">
+                Sign Up
+              </button>
+            </SignUpButton>
+          </SignedOut>
+        </div>
+      </div>
+    </header>
+  );
 }
 
-export default Header
+export default Header;

@@ -21,7 +21,6 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en">
         <body className={`${outfit.variable} ${outfit1.variable} antialiased`}>
-          
           {children}
         </body>
       </html>
