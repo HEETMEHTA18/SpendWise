@@ -65,7 +65,7 @@ export default function Page() {
 
             {/* Clerk SignIn Component */}
             <div className="">
-              <SignIn />
+              <SignIn forceRedirectUrl="/dashboard" />
             </div>
           </div>
         </main>
