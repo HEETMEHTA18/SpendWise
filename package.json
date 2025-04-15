@@ -10,7 +10,8 @@
     "drizzle:push": "drizzle-kit push"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.14.3",
+    "@clerk/nextjs": "^6.15.0",
+    "@neondatabase/serverless": "^1.0.0",
     "@radix-ui/react-slot": "^1.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

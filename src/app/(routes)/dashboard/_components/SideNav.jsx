@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect } from "react";
 import Image from "next/image";
 import {
@@ -44,29 +45,33 @@ function SideNav() {
       path: "/dashboard/upgrade",
     },
   ];
+
   const path = usePathname();
+
   useEffect(() => {
     console.log(path);
   }, [path]);
+
   return (
     <div className="h-screen p-5 border shadow-sm">
       <div className="flex flex-row items-center">
-        <Image src={"./logo.svg"} alt="logo" width={40} height={25} />
-        <span className="text-purple-900 font-bold text-xl">SpendWise</span>
+        <Image src={"/logo.svg"} alt="logo" width={40} height={25} />
+        <span className="text-purple-900 font-bold text-xl ml-2">SpendWise</span>
       </div>
 
-      <div className="mt-5">
-        {menuList.map(menuList, index=>{
-            <Link
-                href={menuList.path}
-                key={index}
+      <div className="mt-10">
+        {menuList.map((item, index) => (
+          <Link href={item.path} key={index}>
+            <h2
+              className={`flex gap-2 items-center text-gray-500 font-medium mb-2 p-4 cursor-pointer rounded-full hover:text-purple-900 hover:bg-purple-200 ${
+                path === item.path ? "text-purple-900 bg-purple-200" : ""
+              }`}
             >
-                <h2 className={`flex gap-2 items-center text-gray-500 font-medium mb-2 p-4 cursor-pointer rounded-full hover:text-purple-900 hover:bg-purple-500 ${path === menuList.path && 'text-purple-900 bg-purple-500'}`}>
-                    <menuList.icon />
-                    {menuList.name}
-                </h2>
-            </Link>
-        })}
+              <item.icon />
+              {item.name}
+            </h2>
+          </Link>
+        ))}
       </div>
     </div>
   );
