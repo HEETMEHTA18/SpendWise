@@ -1,9 +1,9 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import CreateBudget from './CreateBudget'
-import { db } from '@/utils/dbConfig'
+import { db } from '../../../../../../utils/dbConfig'
 import { desc, eq, getTableColumns, sql } from 'drizzle-orm'
-import { Budgets, Expenses } from '@/utils/schema'
+import { Budgets, Expenses } from '../../../../../../utils/schema'
 import { useUser } from '@clerk/nextjs'
 import BudgetItem from './BudgetItem'
 
@@ -21,7 +21,7 @@ function BudgetList() {
 
     const result=await db.select({
       ...getTableColumns(Budgets),
-      totalSpend:sql `sum(${Expenses.amount})`.mapWith(Number),
+      totalSpend: sql`sum(CAST(${Expenses.amount} AS NUMERIC))`.mapWith(Number),
       totalItem: sql `count(${Expenses.id})`.mapWith(Number)
     }).from(Budgets)
     .leftJoin(Expenses,eq(Budgets.id,Expenses.budgetId))

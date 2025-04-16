@@ -6,6 +6,7 @@ import {
   CircleDollarSign,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import formatNumber from "../../../../../utils";
 
 function CardInfo({ budgetList, incomeList }) {
   const [totalBudget, setTotalBudget] = useState(0);
@@ -64,11 +65,11 @@ function CardInfo({ budgetList, incomeList }) {
                 <h2 className="text-md ">Finan Smart AI</h2>
                 <Sparkles
                   className="rounded-full text-white w-10 h-10 p-2
-    bg-gradient-to-r
-    from-pink-500
-    via-red-500
-    to-yellow-500
-    background-animate"
+                    bg-gradient-to-r
+                    from-pink-500
+                    via-red-500
+                    to-yellow-500
+                    background-animate"
                 />
               </div>
               <h2 className="font-light text-md">
@@ -128,4 +129,4 @@ function CardInfo({ budgetList, incomeList }) {
   );
 }
 
-export default CardInfo
+export default CardInfo;
