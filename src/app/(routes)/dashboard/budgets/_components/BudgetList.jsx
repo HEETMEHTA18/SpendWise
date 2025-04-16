@@ -17,7 +17,7 @@ function BudgetList() {
   /**
    * used to get budget List
    */
-  const getBudgetList=async()=>{
+  const getBudgetList= async()=>{
 
     const result=await db.select({
       ...getTableColumns(Budgets),

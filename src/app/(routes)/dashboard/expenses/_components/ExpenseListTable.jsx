@@ -2,10 +2,11 @@ import { db } from '../../../../../../utils/dbConfig';
 import { Expenses } from '../../../../../../utils/schema';
 import { eq } from "drizzle-orm";
 import { Trash } from "lucide-react";
+import moment from 'moment';
 import React from "react";
 import { toast } from "sonner";
 
-function ExpenseListTable({ expenseList, refreshData }) {
+function ExpenseListTable({ expensesList, refreshData }) {
   const deleteExpense = async (expense) => {
     const result = await db
       .delete(Expenses)
@@ -26,11 +27,11 @@ function ExpenseListTable({ expenseList, refreshData }) {
         <h2 className="font-bold">Date</h2>
         <h2 className="font-bold">Action</h2>
       </div>
-      {expenseList?.map((expenses, index) => (
-        <div className="grid grid-cols-4 bg-slate-50 rounded-bl-xl rounded-br-xl p-2">
+      {expensesList?.map((expenses, index) => (
+        <div key={expenses.id} className="grid grid-cols-4 bg-slate-50 rounded-bl-xl rounded-br-xl p-2">
           <h2>{expenses.name}</h2>
           <h2>{expenses.amount}</h2>
-          <h2>{expenses.createdAt}</h2>
+          <h2>{moment(expenses.createdAt).format("DD MMM YYYY")}</h2>
           <h2
             onClick={() => deleteExpense(expenses)}
             className="text-red-500 cursor-pointer"

@@ -33,7 +33,7 @@ function ExpensesScreen() {
     const result = await db
       .select({
         ...getTableColumns(Budgets),
-        totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
+        totalSpend: sql`SUM(${Expenses.amount}::numeric)`.mapWith(Number),
         totalItem: sql`count(${Expenses.id})`.mapWith(Number),
       })
       .from(Budgets)
@@ -128,11 +128,11 @@ function ExpensesScreen() {
             rounded-lg animate-pulse"
           ></div>
         )}
-        <AddExpense
+        {user && <AddExpense
           budgetId={budgetId}
           user={user}
           refreshData={() => getBudgetInfo()}
-        />
+        />}
       </div>
       <div className="mt-4">
         <ExpenseListTable

@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { db } from "../../../../../../utils/dbConfig";
@@ -6,10 +7,11 @@ import moment from "moment";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { Budgets, Expenses } from "../../../../../../utils/schema";
+import { timestamp } from "drizzle-orm/gel-core";
 
 function AddExpense({ budgetId, user, refreshData }) {
-  const [name, setName] = useState();
-  const [amount, setAmount] = useState();
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
   /**
    * Used to Add New Expense
@@ -23,7 +25,8 @@ function AddExpense({ budgetId, user, refreshData }) {
           name: name,
           amount: parseFloat(amount),
           budgetId: budgetId,
-          createdAt: new Date(), // or moment().toISOString() if you prefer moment
+          createdBy: user?.id,
+          createdAt: moment().toDate()
         })
         .returning({ insertedId: Budgets.id });
 
