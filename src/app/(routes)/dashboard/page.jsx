@@ -6,6 +6,8 @@ import { desc, eq, getTableColumns, sql } from "drizzle-orm";
 import { Budgets, Expenses, Incomes } from "../../../../utils/schema";
 import { db } from "../../../../utils/dbConfig";
 import BarChartDashboard from "./_components/BarChartDashboard";
+import ExpenseListTable from "./expenses/_components/ExpenseListTable";
+import BudgetItem from "./budgets/_components/BudgetItem";
 
 function Page() {
   const { user } = useUser();
@@ -21,15 +23,19 @@ function Page() {
 
   const getBudgetList = async () => {
     try {
+      if (!user?.primaryEmailAddress?.emailAddress) return;
+
       const result = await db
         .select({
           ...getTableColumns(Budgets),
-          totalSpent: sql`sum(${Expenses.amount})`.mapWith(Number),
+          totalSpent: sql`sum(cast(${Expenses.amount} as numeric))`.mapWith(
+            Number
+          ),
           totalItem: sql`count(${Expenses.id})`.mapWith(Number),
         })
         .from(Budgets)
         .leftJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
-        .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress))
+        .where(eq(Budgets.createdBy, user.primaryEmailAddress.emailAddress))
         .groupBy(Budgets.id)
         .orderBy(desc(Budgets.id));
 
@@ -43,6 +49,8 @@ function Page() {
 
   const getAllExpenses = async () => {
     try {
+      if (!user?.primaryEmailAddress?.emailAddress) return;
+
       const result = await db
         .select({
           id: Expenses.id,
@@ -50,9 +58,9 @@ function Page() {
           amount: Expenses.amount,
           createdAt: Expenses.createdAt,
         })
-        .from(Budgets)
-        .rightJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
-        .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress))
+        .from(Expenses)
+        .innerJoin(Budgets, eq(Budgets.id, Expenses.budgetId))
+        .where(eq(Budgets.createdBy, user.primaryEmailAddress.emailAddress))
         .orderBy(desc(Expenses.id));
 
       setExpenseList(result);
@@ -65,15 +73,15 @@ function Page() {
     try {
       const result = await db
         .select({
-          ...getTableColumns(Incomes),
-          totalAmount: sql`sum(cast(${Incomes.amount} as numeric))`.mapWith(Number),
+          totalAmount: sql`sum(cast(${Incomes.amount} as numeric))`.mapWith(
+            Number
+          ),
         })
-        .from(Incomes)
-        .groupBy(Incomes.id);
+        .from(Incomes);
 
-      setIncomeList(result);
+      setIncomeList(result); // result[0].totalAmount is the total income
     } catch (error) {
-      console.error("Error fetching income list:", error);
+      console.error("Error fetching total income:", error);
     }
   };
 
@@ -89,23 +97,24 @@ function Page() {
       <div className="grid grid-cols-1 lg:grid-cols-3 mt-6 gap-5">
         <div className="lg:col-span-2">
           <BarChartDashboard budgetList={budgetList} />
-          <ExpenseListTable 
-            expenseList={expenseList} 
-            refreshData={()=>getBudgetList()}
+          <ExpenseListTable
+            expenseList={expenseList}
+            refreshData={() => getBudgetList()}
           />
         </div>
 
         <div className="grid gap-5">
           <h2 className="font-bold text-lg">Latest Budgets</h2>
-          {
-            budgetList?.length > 0 ? budgetList.map((budget, index)=>{
-              <BudgetItem budget={budget} key={index} />
-            }) : [1,2,3,4].map((items, index)=>{
-              <div className="h-[180xp] w-full bg-slate-200 lg animate-pulse">
-
-              </div>
-            })
-          }
+          {budgetList?.length > 0
+            ? budgetList.map((budget, index) => (
+                <BudgetItem budget={budget} key={index} />
+              ))
+            : [1, 2, 3, 4].map((_, index) => (
+                <div
+                  key={index}
+                  className="h-[180px] w-full bg-slate-200 animate-pulse rounded-xl"
+                />
+              ))}
         </div>
       </div>
     </div>
