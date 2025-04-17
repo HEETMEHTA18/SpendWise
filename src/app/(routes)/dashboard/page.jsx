@@ -56,7 +56,6 @@ function Page() {
           id: Expenses.id,
           name: Expenses.name,
           amount: Expenses.amount,
-          createdAt: Expenses.createdAt,
         })
         .from(Expenses)
         .innerJoin(Budgets, eq(Budgets.id, Expenses.budgetId))
