@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import formatNumber from "../../../../../utils";
+import getFinancialAdvice from "../../../../../utils/getFinancialAdvice";
 
 function CardInfo({ budgetList, incomeList }) {
   const [totalBudget, setTotalBudget] = useState(0);
