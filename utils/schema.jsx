@@ -1,30 +1,30 @@
 import {
-    integer,numeric,pgTable,serial,varchar
+  integer, numeric, pgTable, serial, varchar
 } from 'drizzle-orm/pg-core'
 
-//budget schema
+// budget schema
 export const Budgets = pgTable('budgets', {
-    id: serial('id').primaryKey(),
-    name: varchar('name').notNull(),
-    amount: varchar('amount').notNull(),
-    icon: varchar('icon'),
-    createdBy: varchar('createdBy').notNull()
+  id: serial('id').primaryKey(),
+  name: varchar('name').notNull(),
+  amount: numeric('amount').notNull(), // changed here
+  icon: varchar('icon'),
+  createdBy: varchar('createdBy').notNull(),
 })
 
-//income schema
+// income schema
 export const Incomes = pgTable('incomes', {
-    id: serial('id').primaryKey(),
-    name: varchar('name').notNull(),
-    amount: varchar('amount').notNull(),
-    icon: varchar('icon'),
-    createdBy: varchar('createdBy').notNull()
+  id: serial('id').primaryKey(),
+  name: varchar('name').notNull(),
+  amount: numeric('amount').notNull(), // changed here
+  icon: varchar('icon'),
+  createdBy: varchar('createdBy').notNull(),
 })
 
-//expenses schema
+// expenses schema
 export const Expenses = pgTable('expenses', {
-    id: serial('id').primaryKey(),
-    name: varchar('name').notNull(),
-    amount: varchar('amount').notNull(),
-    budgetId: integer('budgetId').references(()=> Budgets.id),
-    createdBy: varchar('createdBy').notNull(),
+  id: serial('id').primaryKey(),
+  name: varchar('name').notNull(),
+  amount: numeric('amount').notNull(), // changed here
+  budgetId: integer('budgetId').references(() => Budgets.id),
+  createdBy: varchar('createdBy').notNull(),
 })

@@ -7,7 +7,6 @@ import moment from "moment";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import { Budgets, Expenses } from "../../../../../../utils/schema";
-import { timestamp } from "drizzle-orm/gel-core";
 
 function AddExpense({ budgetId, user, refreshData }) {
   const [name, setName] = useState("");
