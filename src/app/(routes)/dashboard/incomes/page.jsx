@@ -1,14 +1,13 @@
-"use client";
 import React from "react";
-import CreateIncomes from "./_components/CreateIncomes";
+import IncomeList from "./_components/IncomeList";
 
-function IncomesPage() {
+function Income() {
   return (
-    <div className="p-8">
-      <h2 className="font-bold text-4xl">Incomes</h2>
-      <CreateIncomes refreshData={() => {}} />
+    <div className="p-10">
+      <h2 className="font-bold text-3xl">My Income Streams</h2>
+      <IncomeList />
     </div>
   );
 }
 
-export default IncomesPage;
+export default Income;
