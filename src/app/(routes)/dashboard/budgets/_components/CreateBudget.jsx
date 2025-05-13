@@ -53,7 +53,7 @@ function CreateBudget({ refreshData }) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Create New Budget</DialogTitle>
-            <DialogDescription>
+            <DialogDescription asChild>
               <div className="mt-5">
                 <Button
                   variant="outline"
