@@ -62,7 +62,7 @@ function CreateIncomes({ refreshData }) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Create New Income Source</DialogTitle>
-            <DialogDescription>
+            <DialogDescription asChild>
               <div className="mt-5">
                 <Button
                   variant="outline"
